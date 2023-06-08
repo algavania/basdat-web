@@ -64,7 +64,7 @@
             $nrp = $row['nrp'];
             $sql = "UPDATE submissions SET description='$description' ";
             if ($hasFile) {
-                $fileName = $assignmentId . '_' . $nrp . '.' . $extension;
+                $fileName = $courseId.'_'.$assignmentId . '_' . $nrp . '.' . $extension;
                 move_uploaded_file($tmpName, '../../files/submissions/' . $fileName);
                 $sql .= ",attachment='$fileName' ";
             }

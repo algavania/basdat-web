@@ -51,7 +51,7 @@ include '../../controller/submission/read.php' ?>
                             <div class="font-bold text-sm <?php echo $row['grade'] ? 'text-green-500' : 'text-red-500' ?>">
                                 <?php echo $row['grade'] ? $row['grade'] . '/100' : 'Not graded' ?>
                             </div>
-                            <a href="../../files/submissions/<?php echo $row['attachment'] ?>" type="button" class="text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none w-full text-center mt-3">View Submission</a>
+                            <a href="../../controller/submission/download.php?file=<?php echo basename($row['attachment']) ?>" type="button" class="text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none w-full text-center mt-3">View Submission</a>
                             <button data-id="<?php echo $row['id'] ?>" data-assignment_id="<?php echo $row['assignment_id'] ?>" data-grade="<?php echo $row['grade'] ?>" data-modal-target="gradeModal" data-modal-toggle="gradeModal" class="grade text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none w-full text-center mt-3">Grade Submission</button>
                         </div>
                     <?php endforeach; ?>

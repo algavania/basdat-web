@@ -57,7 +57,7 @@
             </script>';
         } else {
             $nrp = $row['nrp'];
-            $fileName = $assignmentId . '_' . $nrp . '.' . $extension;
+            $fileName = $courseId.'_'.$assignmentId . '_' . $nrp . '.' . $extension;
             move_uploaded_file($tmpName, '../../files/submissions/' . $fileName);
             $sql = "INSERT INTO submissions(student_nrp, assignment_id, description, attachment, grade, created_at, updated_at) VALUES (
                 '$nrp',
