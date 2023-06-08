@@ -14,7 +14,7 @@ include "./middleware/roles.php";
 checkRoleAccess([4]);
 
 $listSql = "SELECT * FROM departments";
-$userSql = "SELECT * FROM users WHERE role=3";
+$userSql = "SELECT * FROM users WHERE role=3 AND id NOT IN (SELECT user_id FROM lecturers);";
 $userQuery = pg_query($connect, $userSql);
 $listQuery = pg_query($connect, $listSql);
 $resultQuery = pg_fetch_all($listQuery);

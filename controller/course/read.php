@@ -6,7 +6,8 @@ $sql = "SELECT courses.closed_at AS closed_at, courses.id AS course_id, courses.
         FROM courses
         LEFT JOIN lecturers ON lecturers.nip = courses.lecturer_nip
         LEFT JOIN users ON users.id = lecturers.user_id
-        LEFT JOIN majors ON majors.id = courses.major_id";
+        LEFT JOIN majors ON majors.id = courses.major_id
+        ";
 
 $id = $_SESSION['id'];
 if ($isLecturer) {
@@ -17,6 +18,8 @@ if ($isLecturer) {
         $listSql = "SELECT * FROM majors WHERE department_id=$lecturerDepartmentId OR id=0 ORDER BY id";
         $listQuery = pg_query($connect, $listSql);
         $resultQuery = pg_fetch_all($listQuery);
+        $nip = $row['nip'];
+        $sql.="WHERE courses.lecturer_nip='$nip'";
 } else {
         $studentSql = "SELECT * FROM students WHERE user_id=$id";
         $result = pg_query($connect, $studentSql);
@@ -36,13 +39,13 @@ if ($isLecturer) {
                 FROM enrollments
                 WHERE student_nrp = '$nrp'
             )
-        GROUP BY c.id";
+        GROUP BY c.id, enrollments.id, users.name, majors.id";
         $sql .= "
         LEFT JOIN enrollments AS e ON c.id = e.course_id AND e.student_nrp = '$nrp'
         WHERE enrollments.student_nrp = '$nrp'
         AND
         c.closed_at IS NULL
-        GROUP BY c.id
+        GROUP BY c.id, enrollments.id, users.name, majors.id
         ";
         $inactiveCoursesSql = "SELECT e.id AS enrollment_id, c.id AS course_id, c.name AS course_name, users.name AS lecturer_name, majors.id AS major_id, majors.name AS major_name, closed_at, COUNT(a.id) AS total_assignments 
         FROM courses AS c
@@ -53,7 +56,7 @@ if ($isLecturer) {
         LEFT JOIN submissions AS s ON a.id = s.assignment_id
         JOIN enrollments AS e ON c.id = e.course_id AND e.student_nrp = '$nrp'
         WHERE c.closed_at < NOW()
-        GROUP BY c.id
+        GROUP BY c.id, e.id, users.name, majors.id
         ";
 
         $query = pg_query($connect, $activeSql);

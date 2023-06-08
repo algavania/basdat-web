@@ -20,8 +20,8 @@
     include "../../middleware/roles.php";
     checkAuthMiddleware(false);
     if (isset($_POST['title'])) {
-        $sql = "INSERT INTO assignments
-VALUES ('',
+        $sql = "INSERT INTO assignments(course_id, assignment_type, title, description, deadline, created_at)
+VALUES (
         '$_POST[course_id]',
         '$_POST[assignment]',
         '$_POST[title]',

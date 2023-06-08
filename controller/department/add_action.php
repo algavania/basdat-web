@@ -38,8 +38,8 @@
      });
     </script>';
         } else {
-            $sql = "INSERT INTO departments
-VALUES ('',
+            $sql = "INSERT INTO departments(name)
+VALUES (
         '$_POST[name]'
         )";
             $query = pg_query($connect, $sql);

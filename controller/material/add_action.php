@@ -53,8 +53,8 @@
         $fileName = uniqid() . '.' . $extension;
         move_uploaded_file($tmpName, '../../files/materials/' . $fileName);
 
-        $sql = "INSERT INTO materials
-VALUES ('',
+        $sql = "INSERT INTO materials(course_id, title, description, attachment, created_at)
+VALUES (
         '$_POST[course_id]',
         '$_POST[title]',
         '$_POST[description]',

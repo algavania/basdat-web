@@ -38,8 +38,8 @@
      });
     </script>';
         } else {
-            $sql = "INSERT INTO majors
-VALUES ('',
+            $sql = "INSERT INTO majors(department_id, name)
+VALUES (
         '$_POST[department]',
         '$_POST[major_name]'
         )";

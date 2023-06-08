@@ -1,6 +1,6 @@
 <?php
 include "connect.php";
-$sql = "SELECT * FROM users";
+$sql = "SELECT * FROM users ORDER BY role";
 $query = pg_query($connect, $sql);
 $no = 1;
 while ($row = pg_fetch_assoc($query)) {

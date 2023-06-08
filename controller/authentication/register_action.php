@@ -27,7 +27,7 @@
             $message = 'Email has been used!';
         } else {
             $password = password_hash($password, PASSWORD_DEFAULT);
-            pg_query($connect, "INSERT INTO users VALUES('', '$name', '$email', '$password', '1', NULL)");
+            pg_query($connect, "INSERT INTO users(name,email,password,role,photo) VALUES('$name', '$email', '$password', '1', NULL)");
             echo '
 <script>
 $(document).ready(function() {

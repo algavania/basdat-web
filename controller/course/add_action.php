@@ -26,8 +26,8 @@
         $row = pg_fetch_assoc($result);
         $lecturerId = $row['nip'];
 
-        $sql = "INSERT INTO courses
-VALUES ('',
+        $sql = "INSERT INTO courses(lecturer_nip, name, major_id, created_at, closed_at)
+VALUES (
         $lecturerId,
         '$_POST[name]',
         '$_POST[major]',

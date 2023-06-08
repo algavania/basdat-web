@@ -2,7 +2,7 @@
 session_start();
 include "../middleware/roles.php";
 checkAuthMiddleware(false);
-checkRoleAccess([2,3]);
+checkRoleAccess([2, 3]);
 include '../controller/material/read.php' ?>
 
 <!DOCTYPE html>
@@ -28,31 +28,37 @@ include '../controller/material/read.php' ?>
         <div class="py-8 px-6 bg-[#F6F9FE] h-full w-full relative">
             <div class="flex justify-between mb-6">
                 <h1 class="font-bold text-xl"><?php echo $row['name'] ?></h1>
-                <button data-modal-target="materialModal" data-modal-toggle="materialModal" id="add-button" class="text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">Add Material</button>
+                <?php if (checkIfLecturer()) : ?>
+                    <button data-modal-target="materialModal" data-modal-toggle="materialModal" id="add-button" class="text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none">Add Material</button>
+                <?php endif ?>
             </div>
-            <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
-                <?php foreach ($result as $row) : ?>
-                    <div class="rounded-lg bg-white p-6 text-black border border-gray-300">
-                        <div class="flex flex-col justify-between h-full">
-                            <div>
-                                <div class="flex justify-between break-words">
-                                    <h1 class="font-bold text-lg"><?php echo $row['title'] ?></h1>
-                                    <?php if (checkIfLecturer()) : ?>
-                                        <div class="flex justify-end gap-1">
-                                            <i data-attachment='<?php echo $row['attachment'] ?>' data-id='<?php echo $row['id'] ?>' data-assignment='<?php echo $row['assignment_type'] ?>' data-title='<?php echo $row['title'] ?>' data-description='<?php echo $row['description'] ?>' data-modal-target="materialModal" data-modal-toggle="materialModal" class='cursor-pointer edit bx bxs-edit bx-sm text-primary'></i>
-                                            <i class='cursor-pointer bx bxs-trash text-red-500 bx-sm delete' data-course_id='<?php echo $row['course_id'] ?>' data-id='<?php echo $row['id'] ?>' data-title='<?php echo $row['title'] ?>'></i>
-                                        </div>
-                                    <?php endif ?>
+            <?php if ($result) : ?>
+                <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
+                    <?php foreach ($result as $row) : ?>
+                        <div class="rounded-lg bg-white p-6 text-black border border-gray-300">
+                            <div class="flex flex-col justify-between h-full">
+                                <div>
+                                    <div class="flex justify-between break-words">
+                                        <h1 class="font-bold text-lg"><?php echo $row['title'] ?></h1>
+                                        <?php if (checkIfLecturer()) : ?>
+                                            <div class="flex justify-end gap-1">
+                                                <i data-attachment='<?php echo $row['attachment'] ?>' data-id='<?php echo $row['id'] ?>' data-assignment='<?php echo $row['assignment_type'] ?>' data-title='<?php echo $row['title'] ?>' data-description='<?php echo $row['description'] ?>' data-modal-target="materialModal" data-modal-toggle="materialModal" class='cursor-pointer edit bx bxs-edit bx-sm text-primary'></i>
+                                                <i class='cursor-pointer bx bxs-trash text-red-500 bx-sm delete' data-course_id='<?php echo $row['course_id'] ?>' data-id='<?php echo $row['id'] ?>' data-title='<?php echo $row['title'] ?>'></i>
+                                            </div>
+                                        <?php endif ?>
+                                    </div>
+                                    <div class="font-bold text-sm text-dark30 line-clamp-3 mt-2">
+                                        <?php echo $row['description'] ?>
+                                    </div>
                                 </div>
-                                <div class="font-bold text-sm text-dark30 line-clamp-3 mt-2">
-                                    <?php echo $row['description'] ?>
-                                </div>
+                                <a type="button" href="../controller/material/download.php?file=<?php echo $row['attachment'] ?>" class="mt-6 text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center py-2.5 focus:outline-none w-full">Download</a>
                             </div>
-                            <a type="button" href="../controller/material/download.php?file=<?php echo $row['attachment'] ?>" class="mt-6 text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center py-2.5 focus:outline-none w-full">Download</a>
                         </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else : ?>
+                <div>You don't have any materials yet.</div>
+            <?php endif ?>
         </div>
     </div>
 

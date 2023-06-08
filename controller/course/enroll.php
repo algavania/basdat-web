@@ -11,8 +11,7 @@ $result = pg_query($connect, $studentSql);
 $row = pg_fetch_assoc($result);
 $nrp = $row['nrp'];
 
-$sql = "INSERT INTO enrollments VALUES (
-        '',
+$sql = "INSERT INTO enrollments(student_nrp, course_id, created_at) VALUES (
         $nrp,
         $id,
         CURRENT_TIMESTAMP

@@ -21,7 +21,7 @@ $photo = 'assets/profile.png';
 $disabled = false;
 if (isset($_GET['id'])) {
     $disabled = $_SESSION['id'] == $_GET['id'];
-    $text = 'Edit Admin';
+    $text = 'Edit User';
     $postUrl = 'controller/admin/update_action.php';
     $id = $_GET['id'];
     $checkNrp = "SELECT * FROM users WHERE id='$id'";
@@ -59,7 +59,7 @@ if (isset($_GET['id'])) {
 <body class="w-full h-screen bg-[#F6F9FE]">
     <div class="mx-auto sm:w-3/4 lg:w-2/4 h-full bg-white relative">
         <div class="bg-primary w-full px-8 py-6 relative">
-            <div class="font-bold text-xl text-white text-center">Admin Form</div>
+            <div class="font-bold text-xl text-white text-center">User Form</div>
         </div>
         <div class="ml-6">
             <a type="button" href="admin.php" class="rounded-full absolute top-4 bg-white p-5">

@@ -73,7 +73,11 @@
                         <?php endforeach; ?>
                     </div>
                 <?php else : ?>
-                    <div>You haven't enrolled in any classes yet.</div>
+                    <?php if (checkIfLecturer()) : ?>
+                        <div>You haven't created any classes yet.</div>
+                    <?php else : ?>
+                        <div>You haven't enrolled in any classes yet.</div>
+                    <?php endif ?>
                 <?php endif ?>
             </div>
 
