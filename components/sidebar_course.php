@@ -69,7 +69,7 @@ $inactiveText = 'text-gray-900';
 <script>
     var i = 0;
     [...document.querySelectorAll('a')].forEach(e => {
-        if (i != 0) {
+        if (i != 0 && i != 3) {
             const url = new URL(e.href)
             for (let [k, v] of new URLSearchParams(window.location.search).entries()) {
                 url.searchParams.set(k, v)

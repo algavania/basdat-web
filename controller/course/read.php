@@ -25,6 +25,7 @@ if ($isLecturer) {
         $result = pg_query($connect, $studentSql);
         $row = pg_fetch_assoc($result);
         $nrp = $row['nrp'];
+        $majorId = $row['major_id'];
         $sql = "SELECT enrollments.id AS enrollment_id, c.id AS course_id, c.name AS course_name, users.name AS lecturer_name, majors.id AS major_id, majors.name AS major_name, closed_at, COUNT(a.id) AS total_assignments FROM courses AS c
         LEFT JOIN enrollments ON enrollments.course_id = c.id
         LEFT JOIN lecturers ON lecturers.nip = c.lecturer_nip
@@ -39,6 +40,7 @@ if ($isLecturer) {
                 FROM enrollments
                 WHERE student_nrp = '$nrp'
             )
+        AND (c.major_id='$majorId' OR c.major_id=0)
         GROUP BY c.id, enrollments.id, users.name, majors.id";
         $sql .= "
         LEFT JOIN enrollments AS e ON c.id = e.course_id AND e.student_nrp = '$nrp'
